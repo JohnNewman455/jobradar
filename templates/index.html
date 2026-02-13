@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Scraper Tool 🔍</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fas fa-search"></i> Job Scraper Tool</h1>
+            <p class="subtitle">Real-time job search across multiple platforms</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="search-form">
+                <div class="form-group">
+                    <label for="jobTitle">
+                        <i class="fas fa-briefcase"></i> Job Title
+                    </label>
+                    <input type="text" id="jobTitle" placeholder="e.g., Software Engineer" value="Software Engineer">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">
+                        <i class="fas fa-map-marker-alt"></i> Location
+                    </label>
+                    <input type="text" id="location" placeholder="e.g., United States" value="United States">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="remoteOnly" checked>
+                        <span><i class="fas fa-home"></i> Remote Only</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="site-selection">
+                <h3><i class="fas fa-globe"></i> Select Job Sites</h3>
+                <div class="site-checkboxes" id="siteCheckboxes">
+                    <label>
+                        <input type="checkbox" value="indeed" checked>
+                        <span class="site-badge indeed">Indeed</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="remoteok" checked>
+                        <span class="site-badge remoteok">RemoteOK</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="weworkremotely" checked>
+                        <span class="site-badge wwr">WeWorkRemotely</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" value="glassdoor">
+                        <span class="site-badge glassdoor">Glassdoor</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="startBtn" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Start Scraping
+                </button>
+                <button id="stopBtn" class="btn btn-danger" disabled>
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+                <button id="exportCsvBtn" class="btn btn-secondary">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </button>
+                <button id="exportExcelBtn" class="btn btn-secondary">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-item">
+                <i class="fas fa-clock"></i>
+                <span>Status: <strong id="statusText">Ready</strong></span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-list"></i>
+                <span>Total Jobs: <strong id="jobCount">0</strong></span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-chart-bar"></i>
+                <span id="siteStats"></span>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container">
+            <div class="results-header">
+                <h2><i class="fas fa-briefcase"></i> Job Listings</h2>
+                <div class="filters">
+                    <input type="text" id="searchFilter" placeholder="🔍 Search jobs..." class="search-input">
+                </div>
+            </div>
+
+            <div id="jobsList" class="jobs-list">
+                <div class="empty-state">
+                    <i class="fas fa-search fa-3x"></i>
+                    <h3>No jobs yet</h3>
+                    <p>Click "Start Scraping" to begin searching for jobs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
