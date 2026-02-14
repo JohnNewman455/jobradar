@@ -284,6 +284,28 @@ def get_jobs():
     return jsonify({'jobs': jobs, 'count': len(jobs)})
 
 
+@app.route('/api/debug/test-indeed')
+def debug_test_indeed():
+    """Debug endpoint to test Indeed scraper directly"""
+    try:
+        from scrapers.indeed_scraper import IndeedScraper
+        scraper = IndeedScraper()
+        jobs = scraper.scrape('QA Automation engineer', 'Canada', remote=True)
+        return jsonify({
+            'success': True,
+            'jobs_found': len(jobs),
+            'sample': jobs[0] if jobs else None,
+            'error': None
+        })
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
 @app.route('/api/stream')
 def stream_jobs():
     """Server-Sent Events stream for real-time job updates.
